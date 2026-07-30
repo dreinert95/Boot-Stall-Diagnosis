@@ -15,3 +15,8 @@ The machine that this was performed on is a Lenovo 80QF with an Intel i5-6200U C
 - No visible errors, no crash, and no obvious failure
 
 # Step 1: Establish a baseline
+
+- First and foremost, it was necessary to actually measure the boot time.
+  - Bash: systemd-analyze
+  - Code: Startup finished in 7.441s (firmware) + 6.174s (loader) + 1.373s (kernel) + 45.570s (initrd) + 53.390s (userspace) = 1min 53.950s
+- This baseline isolated exactly where the stall time was at: 45.570 seconds sitting in initrd (the stage before the real root filesystem is even mounted). Everything after that (firmware, loader, kernel) was normal.

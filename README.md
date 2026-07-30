@@ -20,3 +20,7 @@ The machine that this was performed on is a Lenovo 80QF with an Intel i5-6200U C
   - Bash: systemd-analyze
   - Code: Startup finished in 7.441s (firmware) + 6.174s (loader) + 1.373s (kernel) + 45.570s (initrd) + 53.390s (userspace) = 1min 53.950s
 - This baseline isolated exactly where the stall time was at: 45.570 seconds sitting in initrd (the stage before the real root filesystem is even mounted). Everything after that (firmware, loader, kernel) was normal.
+
+# Step 2: Verify that initrd is the cause
+
+- 

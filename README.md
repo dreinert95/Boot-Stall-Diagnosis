@@ -74,13 +74,13 @@ The machine that this was performed on is a Lenovo 80QF with an Intel i5-6200U C
     - Fedora's measured-boot chain, which attempts to record PCR (Platform Configuration Register) measurements into the TPM at each boot stage. Several of these were still active and independently capable of waiting on TPM hardware, regardless of the device mask.
    
 - Actual fix:
-- The actual fix was at the firmware level: disabling Intel PTT (Intel's firmware-based TPM implementation) in BIOS. This stopped the kernel from ever presenting a TPM device to the system at all, therefore nothing downstream had anything to wait on.
-- Bash: sudo systemctl mask systemd-pcrphase-initrd.service
-- Bash: sudo dracut -f --regenerate-all
-- Bash: systemctl reboot
-- Result: Startup finished in 6.813s (firmware) + 3.573s (loader) + 1.376s (kernel) + 3.068s (initrd) + 11.406s (userspace) = 26.240s
-  - _initrd_ dropped from 45.7s to 3.1s
-  - total boot time dropped from ~114s to ~26s
+  - The actual fix was at the firmware level: disabling Intel PTT (Intel's firmware-based TPM implementation) in BIOS. This stopped the kernel from ever presenting a TPM device to the system at all, therefore nothing downstream had anything to wait on.
+  - Bash: sudo systemctl mask systemd-pcrphase-initrd.service
+  - Bash: sudo dracut -f --regenerate-all
+  - Bash: systemctl reboot
+  - Result: Startup finished in 6.813s (firmware) + 3.573s (loader) + 1.376s (kernel) + 3.068s (initrd) + 11.406s (userspace) = 26.240s
+    - _initrd_ dropped from 45.7s to 3.1s
+    - total boot time dropped from ~114s to ~26s
 
 # Root Cause
 
